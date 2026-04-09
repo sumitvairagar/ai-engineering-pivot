@@ -38,21 +38,21 @@ You already build event pipelines in Kafka. MLOps is the same idea applied to ML
 ## ✅ Week 1 Checklist
 
 ### 🔧 Setup (Day 1)
-- [ ] Install Python 3.10+ and set up a virtual environment
+- [x] Install Python 3.10+ and set up a virtual environment
   ```bash
   python -m venv mlops-env
   source mlops-env/bin/activate
   pip install mlflow scikit-learn pandas numpy matplotlib
   ```
-- [ ] Run MLflow UI locally — open http://localhost:5000
+- [x] Run MLflow UI locally — open http://localhost:5000
   ```bash
   mlflow ui
   ```
-- [ ] Read: [MLflow Quickstart](https://mlflow.org/docs/latest/quickstart.html) — first 2 sections only (~30 min)
-- [ ] **What to absorb:** How `mlflow.log_param()`, `mlflow.log_metric()`, and `mlflow.log_model()` work. That's 80% of MLflow you'll use daily.
+- [x] Read: [MLflow Quickstart](https://mlflow.org/docs/latest/quickstart.html) — first 2 sections only (~30 min)
+- [x] **What to absorb:** How `mlflow.log_param()`, `mlflow.log_metric()`, and `mlflow.log_model()` work. That's 80% of MLflow you'll use daily.
 
 ### 🧪 First Experiment (Day 2–3)
-- [ ] Create `experiments/first_run.py` with this code and run it:
+- [x] Create `experiments/first_run.py` with this code and run it:
 
 ```python
 import mlflow
@@ -80,21 +80,21 @@ with mlflow.start_run():
     print(f"Accuracy: {acc:.4f}")
 ```
 
-- [ ] Open MLflow UI, go to the "iris-classifier" experiment
-- [ ] See all 3 runs listed with different params and metrics
-- [ ] Click "Compare" on 2 runs — observe the diff view
-- [ ] **Key insight to write in notes.md:** This is model versioning. Same as comparing git commits, but for trained models.
+- [x] Open MLflow UI, go to the "iris-classifier" experiment
+- [x] See all 3 runs listed with different params and metrics
+- [x] Click "Compare" on 2 runs — observe the diff view
+- [x] **Key insight to write in notes.md:** This is model versioning. Same as comparing git commits, but for trained models.
 
 ### 📖 Understand the ML Lifecycle (Day 4–5)
-- [ ] Read: [Made With ML — MLOps Motivation](https://madewithml.com/courses/mlops/motivation/) (~20 min)
-- [ ] Read: [Made With ML — Design section](https://madewithml.com/courses/mlops/design/) (~30 min)
-- [ ] Watch (optional, 15 min): Search YouTube for "MLOps explained in 10 minutes" — Weights & Biases or Google Cloud versions are good
-- [ ] **What to absorb:** The 4 stages — Data → Training → Evaluation → Deployment. Know what goes wrong at each stage in production.
+- [x] Read: [Made With ML — MLOps Motivation](https://madewithml.com/courses/mlops/motivation/) (~20 min)
+- [x] Read: [Made With ML — Design section](https://madewithml.com/courses/mlops/design/) (~30 min)
+- [x] Watch (optional, 15 min): Search YouTube for "MLOps explained in 10 minutes" — Weights & Biases or Google Cloud versions are good
+- [x] **What to absorb:** The 4 stages — Data → Training → Evaluation → Deployment. Know what goes wrong at each stage in production.
 
 ### 💭 Concept: Feature Pipelines (Day 6–7)
-- [ ] Read: [What is a Feature Store](https://www.featurestore.org/what-is-a-feature-store) (~15 min)
-- [ ] Read: [Feature Pipelines vs Data Pipelines](https://www.tecton.ai/blog/what-is-a-feature-pipeline/) (~10 min)
-- [ ] **Think exercise — do this in notes.md:**
+- [x] Read: [What is a Feature Store](https://www.featurestore.org/what-is-a-feature-store) (~15 min)
+- [x] Read: [Feature Pipelines vs Data Pipelines](https://www.tecton.ai/blog/what-is-a-feature-pipeline/) (~10 min)
+- [x] **Think exercise — do this in notes.md:**
   In a brokerage OMS context, define 5 "features" a model might need:
   - Example: `order_volume_last_1hr`, `broker_fill_rate_7d`, `market_volatility_score`
   - Write your own 5. This is the domain-specific thinking that makes you valuable.
