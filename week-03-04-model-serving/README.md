@@ -6,6 +6,19 @@
 
 ---
 
+## 🎬 Demoable Deliverable
+
+**What to show:** A live REST API serving ML predictions from a Docker container — hit `/predict` with curl or Swagger UI and get real-time order fill predictions with confidence scores.
+
+**Demo format:**
+- Screen recording: `docker compose up` → MLflow UI on :5000 + Prediction API on :8000
+- Live Swagger UI walkthrough — send requests, show responses with latency
+- Show `/metrics` endpoint with Prometheus counters after multiple predictions
+
+**Where to share:** GitHub repo with Docker instructions + a short Loom/screen recording. Deploy to a free tier (Railway, Render, or HuggingFace Spaces) for a live URL.
+
+---
+
 ## 🎯 What You're Learning (and Why)
 
 This is YOUR territory as a Java/Spring engineer. The concepts are identical — you're just using Python + FastAPI instead of Java + Spring Boot. By the end of this phase, you'll have a **running REST API that serves ML predictions**, containerized in Docker.

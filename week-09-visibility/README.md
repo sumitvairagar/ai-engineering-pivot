@@ -6,6 +6,19 @@
 
 ---
 
+## 🎬 Demoable Deliverable
+
+**What to show:** Published content — 2 LinkedIn posts and 1 BYOA technical article, all linking back to your GitHub portfolio.
+
+**Demo format:**
+- The posts and article themselves ARE the demo
+- Each should link to your GitHub repo and include at least one visual (screenshot, diagram, or GIF)
+- Save URLs of all published content in a `published_links.md` file
+
+**Where to share:** LinkedIn (posts + article), optionally dev.to or your own blog for the BYOA article.
+
+---
+
 ## 🎯 What You're Producing This Week
 
 1. **2 LinkedIn posts** — engineering insights from your past 8 weeks

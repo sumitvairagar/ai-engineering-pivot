@@ -6,14 +6,14 @@
 
 ## 📊 Progress Dashboard
 
-| Phase | Topic | Status |
-|-------|-------|--------|
-| Week 1–2 | MLOps Foundations + MLflow | ⬜ Not Started |
-| Week 3–4 | Model Serving + Docker + FastAPI | ⬜ Not Started |
-| Week 5–6 | RAG Pipeline — Financial Domain | ⬜ Not Started |
-| Week 7–8 | Agent Patterns + Agentic AI | ⬜ Not Started |
-| Week 9 | Public Visibility — LinkedIn + Articles | ⬜ Not Started |
-| Week 10 | Portfolio Polish + CV Update | ⬜ Not Started |
+| Phase | Topic | Demoable Deliverable | Status |
+|-------|-------|---------------------|--------|
+| Week 1–2 | MLOps Foundations + MLflow | MLflow dashboard with experiment comparison + drift report | ⬜ Not Started |
+| Week 3–4 | Model Serving + Docker + FastAPI | Live prediction API in Docker with Swagger UI | ⬜ Not Started |
+| Week 5–6 | RAG Pipeline — Financial Domain | Interactive RAG chatbot on trade data | ⬜ Not Started |
+| Week 7–8 | Agent Patterns + Agentic AI | Multi-tool brokerage agent (RAG + ML + compliance) | ⬜ Not Started |
+| Week 9 | Public Visibility — LinkedIn + Articles | 2 LinkedIn posts + 1 BYOA article published | ⬜ Not Started |
+| Week 10 | Portfolio Polish + CV Update | Polished GitHub repo + updated CV + positioning statement | ⬜ Not Started |
 
 ## 🗂️ Structure
 

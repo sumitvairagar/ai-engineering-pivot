@@ -6,6 +6,19 @@
 
 ---
 
+## 🎬 Demoable Deliverable
+
+**What to show:** An interactive RAG chatbot that answers natural language questions about brokerage trade data — grounded in real documents, not hallucinations.
+
+**Demo format:**
+- Screen recording or live demo: ask 3–4 questions, show answers with source attribution
+- Show the Swagger UI at `/ask` endpoint with example Q&A
+- Bonus: a simple HTML chat UI that calls your API
+
+**Where to share:** GitHub repo with full setup instructions + example Q&A pairs in the README. Deploy the API + Qdrant via Docker Compose for a one-command demo. Record a 2-min Loom walkthrough.
+
+---
+
 ## 🎯 What You're Building
 
 A system where you can ask questions like:

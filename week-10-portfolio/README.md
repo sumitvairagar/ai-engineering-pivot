@@ -6,6 +6,19 @@
 
 ---
 
+## 🎬 Demoable Deliverable
+
+**What to show:** A polished GitHub portfolio repo that tells your full story in one link — every week completed, real code, screenshots, and a clear narrative from MLOps → Model Serving → RAG → Agents.
+
+**Demo format:**
+- The GitHub repo itself: clean README with progress dashboard, "What I Built" section with visuals, stack listed
+- Updated CV with new AI engineering language
+- A 3-sentence positioning statement you can use in any client conversation
+
+**Where to share:** GitHub (the repo), LinkedIn (updated profile + About section), CV (send to recruiters/clients).
+
+---
+
 ## ✅ Week 10 Checklist
 
 ### 🗂️ GitHub Portfolio Polish (Day 1–2)

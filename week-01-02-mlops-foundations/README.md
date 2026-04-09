@@ -6,6 +6,19 @@
 
 ---
 
+## 🎬 Demoable Deliverable
+
+**What to show:** MLflow dashboard with your OrderFillPredictor experiments — multiple runs compared side-by-side, metrics visualized, best model promoted to Staging.
+
+**Demo format:**
+- Screenshot or screen recording of MLflow UI showing experiment comparison
+- Evidently drift report (HTML) showing detected data drift
+- Push to GitHub with a clear README explaining what each experiment tested
+
+**Where to share:** GitHub repo + LinkedIn post teaser ("I tracked 6 ML experiments on brokerage data using MLflow — here's what I learned about model versioning")
+
+---
+
 ## 🎯 What You're Learning (and Why)
 
 You already build event pipelines in Kafka. MLOps is the same idea applied to ML models:

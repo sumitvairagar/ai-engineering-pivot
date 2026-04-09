@@ -6,6 +6,19 @@
 
 ---
 
+## 🎬 Demoable Deliverable
+
+**What to show:** A multi-tool brokerage agent that reasons through complex scenarios — querying trade history (RAG), predicting order fills (ML model), and flagging risky orders (compliance tool) — all in one conversation.
+
+**Demo format:**
+- Screen recording of the agent handling 2–3 realistic scenarios end-to-end
+- Show the tool call chain: agent reasons → calls RAG → calls ML model → synthesizes answer → flags order
+- Terminal output showing the full ReAct loop with tool calls and reasoning
+
+**Where to share:** GitHub repo with the agent config + a `BYOA_CONCEPT.md` explaining the methodology. This becomes the foundation for your Week 9 technical article.
+
+---
+
 ## 🎯 What You're Building
 
 A multi-tool agent that can:
