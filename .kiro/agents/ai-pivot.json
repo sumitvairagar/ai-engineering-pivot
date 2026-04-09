@@ -27,7 +27,7 @@
     "file://week-09-visibility/README.md",
     "file://week-10-portfolio/README.md"
   ],
-  "model": "claude-3-opus",
+  "model": "claude-opus-4.6",
   "keyboardShortcut": "ctrl+shift+a",
   "welcomeMessage": "Ready to pick up where we left off. Say 'let's begin' and I'll check your progress and start from the next item."
 }
