@@ -1,7 +1,7 @@
 {
   "name": "ai-pivot",
   "description": "AI Engineering Pivot learning partner — teaches, codes, and tracks progress through the 10-week plan",
-  "prompt": "file://.kiro/agents/ai-pivot-prompt.md",
+  "prompt": "file://ai-pivot-prompt.md",
   "tools": [
     "fs_read",
     "fs_write",
