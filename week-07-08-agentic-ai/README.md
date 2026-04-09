@@ -1,4 +1,4 @@
-# Week 7–8: Agent Patterns + Agentic AI
+# Week 8–9: Agent Patterns + Agentic AI
 
 > **Theme:** Extend your existing agent knowledge (from your workshop) into production-grade patterns. This phase is 70% already yours — you're formalizing and deepening what you've built.
 > **Time commitment:** ~1.5 hrs/day
@@ -44,7 +44,7 @@ You already know the agent loop from your workshop. This phase adds **production
 
 ---
 
-## ✅ Week 7 Checklist
+## ✅ Week 8 Checklist
 
 ### 📖 Deepen Agent Theory (Day 1)
 - [ ] Read: [Anthropic's Building Effective Agents](https://www.anthropic.com/research/building-effective-agents) — the full post (~45 min). This is the canonical reference.
@@ -350,7 +350,7 @@ class BrokerageAgentSession:
   Turn 3: "Given this, which broker should I route my next large order to?"
   ```
 
-### 📝 Week 7 Wrap-up (Day 6–7)
+### 📝 Week 8 Wrap-up (Day 6–7)
 - [ ] In `notes.md`, answer:
   1. What's the difference between your agent and a hardcoded if/else decision tree?
   2. When would you NOT use an agent here? (Critical thinking)
@@ -359,7 +359,7 @@ class BrokerageAgentSession:
 
 ---
 
-## ✅ Week 8 Checklist
+## ✅ Week 9 Checklist
 
 ### 🔗 Connect Agent to Your Other Systems (Day 1–2)
 - [ ] Make the agent call your actual RAG API and ML prediction API (not mocks)
@@ -426,11 +426,11 @@ system_prompt: |
 
 - [ ] Write `BYOA_CONCEPT.md` — your thinking on what BYOA means, using THIS agent as an example. This becomes a LinkedIn article.
 
-### 📝 Week 8 Wrap-up (Day 7)
+### 📝 Week 9 Wrap-up (Day 7)
 - [ ] Full system test: all three services running (RAG, ML, Agent), run 5 end-to-end scenarios
 - [ ] Document failures — what breaks, what would need to be hardened for production
 - [ ] Commit all code + configs
-- [ ] Update main README → Week 7–8 ✅ Done
+- [ ] Update main README → Week 8–9 ✅ Done
 
 ---
 
@@ -453,4 +453,4 @@ system_prompt: |
 - [ ] I can articulate what BYOA means using my own agent as an example
 - [ ] I know when NOT to use agents (important for credibility)
 
-**Next:** [Week 9 — Public Visibility →](../week-09-visibility/README.md)
+**Next:** [Week 10 — Public Visibility →](../week-09-visibility/README.md)

@@ -1,8 +1,8 @@
-# 🚀 AI Engineering Pivot — 10-Week Learning Plan
+# 🚀 AI Engineering Pivot — 11-Week Learning Plan
 
 > **Goal:** Bridge from Senior Java/Spring/Kafka consultant → AI-Augmented Systems Engineer with MLOps credibility
 > **Start Date:** _(fill in)_
-> **Target Completion:** _(10 weeks from start)_
+> **Target Completion:** _(11 weeks from start)_
 
 ## 📊 Progress Dashboard
 
@@ -10,10 +10,10 @@
 |-------|-------|---------------------|--------|
 | Week 1–2 | MLOps Foundations + MLflow | MLflow dashboard with experiment comparison + drift report | ⬜ Not Started |
 | Week 3–4 | Model Serving + Docker + FastAPI | Live prediction API in Docker with Swagger UI | ⬜ Not Started |
-| Week 5–6 | RAG Pipeline — Financial Domain | Interactive RAG chatbot on trade data | ⬜ Not Started |
-| Week 7–8 | Agent Patterns + Agentic AI | Multi-tool brokerage agent (RAG + ML + compliance) | ⬜ Not Started |
-| Week 9 | Public Visibility — LinkedIn + Articles | 2 LinkedIn posts + 1 BYOA article published | ⬜ Not Started |
-| Week 10 | Portfolio Polish + CV Update | Polished GitHub repo + updated CV + positioning statement | ⬜ Not Started |
+| Week 5–7 | RAG Pipeline — Vector + Vectorless | Two RAG approaches on same data with head-to-head comparison | ⬜ Not Started |
+| Week 8–9 | Agent Patterns + Agentic AI | Multi-tool brokerage agent (RAG + ML + compliance) | ⬜ Not Started |
+| Week 10 | Public Visibility — LinkedIn + Articles | 2 LinkedIn posts + 1 BYOA article published | ⬜ Not Started |
+| Week 11 | Portfolio Polish + CV Update | Polished GitHub repo + updated CV + positioning statement | ⬜ Not Started |
 
 ## 🗂️ Structure
 
@@ -33,9 +33,9 @@
 
 ## 🎯 What This Plan Builds
 
-By the end of 10 weeks, you will have:
+By the end of 11 weeks, you will have:
 1. **A working MLOps pipeline** — MLflow + FastAPI + Docker
-2. **A RAG system** on financial/order data (your Manafsoft context)
+2. **Two RAG systems** on financial/order data — vector-based AND vectorless, with comparison
 3. **An agentic AI pattern library** (extending your existing workshop)
 4. **Public artifacts** — 2 LinkedIn posts, 1 technical article, updated CV
 5. **GitHub portfolio** — this repo, fully populated with real code

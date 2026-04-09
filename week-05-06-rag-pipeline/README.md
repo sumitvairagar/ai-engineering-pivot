@@ -1,6 +1,6 @@
-# Week 5–6: RAG Pipeline — Financial Domain
+# Week 5–7: RAG Pipeline — Financial Domain (Vector + Vectorless)
 
-> **Theme:** Build a Retrieval-Augmented Generation (RAG) system that answers questions about order/trade data using LLMs. This is the most portfolio-valuable project in the entire plan.
+> **Theme:** Build TWO RAG systems on the same financial data — first with vector embeddings (the foundation), then with vectorless reasoning-based retrieval (the cutting edge). Compare them head-to-head. This is the most portfolio-valuable project in the entire plan.
 > **Time commitment:** ~2 hrs/day — this is the most hands-on phase
 > **Status:** ⬜ Not Started
 
@@ -8,14 +8,14 @@
 
 ## 🎬 Demoable Deliverable
 
-**What to show:** An interactive RAG chatbot that answers natural language questions about brokerage trade data — grounded in real documents, not hallucinations.
+**What to show:** Two RAG approaches on the same brokerage trade data — vector-based and vectorless — with a side-by-side comparison showing where each wins.
 
 **Demo format:**
-- Screen recording or live demo: ask 3–4 questions, show answers with source attribution
-- Show the Swagger UI at `/ask` endpoint with example Q&A
-- Bonus: a simple HTML chat UI that calls your API
+- Screen recording or live demo: ask the same 4–5 questions to both systems, compare answers
+- Show the Swagger UI at `/ask` endpoint with a `method` toggle (vector vs vectorless)
+- A simple HTML chat UI that lets you switch between approaches
 
-**Where to share:** GitHub repo with full setup instructions + example Q&A pairs in the README. Deploy the API + Qdrant via Docker Compose for a one-command demo. Record a 2-min Loom walkthrough.
+**Where to share:** GitHub repo with full setup instructions + a `COMPARISON.md` showing results. This becomes a LinkedIn post: "I built the same financial RAG system two ways — here's what I learned."
 
 ---
 
@@ -28,27 +28,42 @@ A system where you can ask questions like:
 
 And get accurate, LLM-generated answers grounded in your actual data — not hallucinations.
 
-**Stack:** LangChain + Qdrant (vector DB) + Claude/OpenAI API + FastAPI
+**You'll build this twice:**
+1. **Vector RAG (Week 5):** Chunk → Embed → Vector search → LLM. The standard approach.
+2. **Vectorless RAG (Week 6):** Document tree → LLM reasons over structure → retrieves by logic, not similarity.
+3. **Compare + Ship (Week 7):** Head-to-head evaluation, API, Docker, documentation.
 
 ---
 
-## 🏗️ Architecture
+## 🏗️ Architecture — Two Approaches
 
+### Approach 1: Vector RAG
 ```
 User Question
      ↓
-[FastAPI endpoint]
-     ↓
 [Embedding model] → converts question to vector
      ↓
-[Qdrant] ← stores vectorized order/trade documents
-     ↓ (top-k similar docs)
-[LLM (Claude/GPT)] ← question + retrieved context
+[Qdrant] ← stores vectorized trade report chunks
+     ↓ (top-k by cosine similarity)
+[LLM] ← question + retrieved chunks
      ↓
-Answer grounded in real data
+Answer (grounded in similar text)
 ```
 
-This is RAG. The key insight: **LLM doesn't need to memorize your data — it reasons over documents retrieved at query time.**
+### Approach 2: Vectorless RAG (PageIndex / Reasoning-Based)
+```
+User Question
+     ↓
+[Document Tree] ← hierarchical structure of trade reports
+     ↓
+[LLM] ← reasons over tree structure to find relevant sections
+     ↓ (navigates to exact nodes)
+[LLM] ← question + structurally-retrieved content
+     ↓
+Answer (grounded in logically-relevant sections)
+```
+
+**Key difference:** Vector RAG finds text that *sounds similar*. Vectorless RAG finds text that *logically should contain the answer*. Both have tradeoffs — you'll learn when each wins.
 
 ---
 
@@ -308,104 +323,392 @@ if __name__ == "__main__":
 
 ---
 
-## ✅ Week 6 Checklist
+## ✅ Week 6 Checklist — Vectorless RAG (Reasoning-Based Retrieval)
 
-### 🌐 Expose RAG as API + UI (Day 1–2)
-- [ ] Create `src/rag_api.py` — FastAPI wrapper:
+### 📖 Understand Why Vectorless Exists (Day 1)
+- [ ] Read: [Microsoft — Vectorless Reasoning-Based RAG](https://techcommunity.microsoft.com/blog/azuredevcommunityblog/vectorless-reasoning-based-rag-a-new-approach-to-retrieval-augmented-generation/4502238) (~20 min)
+- [ ] Read: [PageIndex: The Vectorless RAG](https://pvtech.substack.com/p/pageindex-the-vectorless-rag) (~15 min)
+- [ ] **What to absorb:** Vector RAG chunks documents and searches by similarity — it can miss context split across chunks and retrieve text that "sounds right" but isn't logically relevant. Vectorless RAG keeps document structure intact and uses the LLM to reason about WHERE the answer should be. Think of it like: vector search = full-text search on steroids, vectorless = a human reading a table of contents.
+
+### 🌳 Build a Document Tree from Your Trade Reports (Day 2–3)
+
+Instead of chunking and embedding, you'll organize your trade reports into a navigable tree structure that an LLM can reason over.
+
+- [ ] Create `src/build_document_tree.py`:
+
+```python
+"""
+Build a hierarchical document tree from trade reports.
+Instead of embedding chunks, we organize data by structure:
+  Root → Broker → Order Type → Monthly summaries → Daily reports
+
+This is what the LLM will "navigate" to find answers.
+"""
+import json
+from collections import defaultdict
+from datetime import datetime
+
+with open("src/trade_reports.json") as f:
+    reports = json.load(f)
+
+# Build tree: Broker → Order Type → Month → Reports
+tree = {"title": "Trade Reports Q4 2024", "children": [], "node_id": "root"}
+broker_nodes = {}
+
+for report in reports:
+    broker = report["broker"]
+    order_type = report["order_type"]
+    month = datetime.strptime(report["date"], "%Y-%m-%d").strftime("%Y-%m")
+
+    # Broker level
+    if broker not in broker_nodes:
+        broker_node = {
+            "node_id": f"broker-{broker}",
+            "title": f"Broker {broker}",
+            "summary": f"All trade reports for Broker {broker}",
+            "children": {}
+        }
+        broker_nodes[broker] = broker_node
+        tree["children"].append(broker_node)
+
+    # Order type level
+    bn = broker_nodes[broker]
+    if order_type not in bn["children"]:
+        bn["children"][order_type] = {
+            "node_id": f"broker-{broker}-{order_type}",
+            "title": f"Broker {broker} — {order_type} orders",
+            "summary": f"{order_type.title()} order reports for Broker {broker}",
+            "children": {}
+        }
+
+    # Month level
+    ot_node = bn["children"][order_type]
+    if month not in ot_node["children"]:
+        ot_node["children"][month] = {
+            "node_id": f"broker-{broker}-{order_type}-{month}",
+            "title": f"{order_type.title()} orders — {month}",
+            "summary": "",
+            "reports": []
+        }
+
+    ot_node["children"][month]["reports"].append(report)
+
+# Compute monthly summaries
+for broker_node in tree["children"]:
+    for ot_key, ot_node in broker_node["children"].items():
+        for month_key, month_node in ot_node["children"].items():
+            reps = month_node["reports"]
+            avg_fill = sum(r["fill_rate"] for r in reps) / len(reps)
+            avg_vol = sum(r["market_volatility"] for r in reps) / len(reps)
+            month_node["summary"] = (
+                f"{len(reps)} reports. Avg fill rate: {avg_fill:.1%}. "
+                f"Avg volatility: {avg_vol:.2f}. "
+                f"Date range: {reps[0]['date']} to {reps[-1]['date']}."
+            )
+
+# Convert nested dicts to lists for clean JSON
+def flatten_children(node):
+    if "children" in node and isinstance(node["children"], dict):
+        node["children"] = list(node["children"].values())
+        for child in node["children"]:
+            flatten_children(child)
+
+flatten_children(tree)
+
+with open("src/document_tree.json", "w") as f:
+    json.dump(tree, f, indent=2)
+
+# Print tree structure
+def print_tree(node, indent=0):
+    prefix = "  " * indent
+    title = node.get("title", "?")
+    summary = node.get("summary", "")[:60]
+    print(f"{prefix}├── {title} | {summary}")
+    for child in node.get("children", []):
+        print_tree(child, indent + 1)
+
+print_tree(tree)
+print(f"\nTree saved to src/document_tree.json")
+```
+
+- [ ] Run it — observe the hierarchical structure
+- [ ] **Key insight:** This is how PageIndex works conceptually. Instead of "find similar text," the LLM will look at this tree and reason: "The question is about Broker A stop orders → navigate to Broker A → stop orders → relevant month."
+
+### 🤖 Build the Vectorless RAG Chain (Day 4–5)
+- [ ] Create `src/vectorless_rag_chain.py`:
+
+```python
+"""
+Vectorless RAG: LLM reasons over document tree structure
+to find relevant content — no embeddings, no vector DB.
+"""
+import json
+import anthropic
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+class VectorlessTradeRAG:
+    def __init__(self):
+        self.llm = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+        with open("src/document_tree.json") as f:
+            self.tree = json.load(f)
+
+    def _tree_without_reports(self):
+        """Return tree structure with summaries but without full report text"""
+        def strip(node):
+            out = {"node_id": node.get("node_id"), "title": node.get("title"),
+                   "summary": node.get("summary", "")}
+            if "children" in node:
+                out["children"] = [strip(c) for c in node["children"]]
+            if "reports" in node:
+                out["report_count"] = len(node["reports"])
+            return out
+        return strip(self.tree)
+
+    def _get_node_content(self, node_ids: list) -> str:
+        """Retrieve full content for specific nodes"""
+        content = []
+        def search(node):
+            if node.get("node_id") in node_ids:
+                if "reports" in node:
+                    for r in node["reports"]:
+                        content.append(r["summary"])
+                elif "summary" in node:
+                    content.append(node["summary"])
+            for child in node.get("children", []):
+                search(child)
+        search(self.tree)
+        return "\n\n".join(content)
+
+    def answer(self, question: str) -> dict:
+        # Step 1: LLM reasons over tree to find relevant nodes
+        tree_summary = json.dumps(self._tree_without_reports(), indent=2)
+
+        nav_response = self.llm.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=500,
+            messages=[{"role": "user", "content": f"""You are navigating a document tree to find trade reports relevant to a question.
+
+DOCUMENT TREE (summaries only):
+{tree_summary}
+
+QUESTION: {question}
+
+Which node_ids contain data needed to answer this question? Think step by step about where the answer would logically be, then return JSON:
+{{"reasoning": "your thinking", "node_ids": ["id1", "id2"]}}
+
+Return ONLY the JSON."""}]
+        )
+
+        nav_result = json.loads(nav_response.content[0].text)
+        reasoning = nav_result.get("reasoning", "")
+        node_ids = nav_result.get("node_ids", [])
+
+        # Step 2: Retrieve content from selected nodes
+        context = self._get_node_content(node_ids)
+
+        # Step 3: Generate answer from retrieved content
+        answer_response = self.llm.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=500,
+            messages=[{"role": "user", "content": f"""You are a financial analyst. Answer using ONLY the data below.
+Be specific — reference dates, brokers, and numbers.
+
+RETRIEVED DATA:
+{context}
+
+QUESTION: {question}
+
+ANSWER:"""}]
+        )
+
+        return {
+            "question": question,
+            "answer": answer_response.content[0].text,
+            "method": "vectorless",
+            "reasoning": reasoning,
+            "nodes_retrieved": node_ids,
+        }
+
+if __name__ == "__main__":
+    rag = VectorlessTradeRAG()
+    questions = [
+        "What were the fill rates for Broker A during high volatility periods?",
+        "Which order type had the highest rejection rate across all brokers?",
+        "Compare the risk scores between brokers B and C for stop orders.",
+    ]
+    for q in questions:
+        result = rag.answer(q)
+        print(f"\nQ: {q}")
+        print(f"Reasoning: {result['reasoning']}")
+        print(f"Nodes: {result['nodes_retrieved']}")
+        print(f"A: {result['answer']}")
+        print("-" * 60)
+```
+
+- [ ] Run it — observe how the LLM navigates the tree vs how vector search finds chunks
+- [ ] Compare the reasoning trace to vector RAG — which found more relevant data?
+
+---
+
+## ✅ Week 7 Checklist — Compare, Ship, and Document
+
+### 📊 Head-to-Head Comparison (Day 1–2)
+- [ ] Create `src/compare_rag.py`:
+
+```python
+"""
+Run the same questions through both RAG approaches and compare.
+"""
+from src.rag_chain import TradeReportRAG
+from src.vectorless_rag_chain import VectorlessTradeRAG
+import time
+import json
+
+vector_rag = TradeReportRAG()
+vectorless_rag = VectorlessTradeRAG()
+
+questions = [
+    "What were the fill rates for Broker A during high volatility periods?",
+    "Which order type had the highest rejection rate across all brokers?",
+    "Compare the risk scores between brokers B and C for stop orders.",
+    "Were there any trends in market volatility over the last 3 months?",
+    "What was Broker C's performance on limit orders in November?",
+]
+
+results = []
+for q in questions:
+    # Vector RAG
+    start = time.time()
+    v_result = vector_rag.answer(q)
+    v_time = (time.time() - start) * 1000
+
+    # Vectorless RAG
+    start = time.time()
+    vl_result = vectorless_rag.answer(q)
+    vl_time = (time.time() - start) * 1000
+
+    results.append({
+        "question": q,
+        "vector": {"answer": v_result["answer"], "latency_ms": round(v_time)},
+        "vectorless": {
+            "answer": vl_result["answer"],
+            "reasoning": vl_result["reasoning"],
+            "latency_ms": round(vl_time),
+        },
+    })
+
+    print(f"\nQ: {q}")
+    print(f"  VECTOR ({v_time:.0f}ms): {v_result['answer'][:120]}...")
+    print(f"  VECTORLESS ({vl_time:.0f}ms): {vl_result['answer'][:120]}...")
+
+with open("src/comparison_results.json", "w") as f:
+    json.dump(results, f, indent=2)
+print("\nResults saved to src/comparison_results.json")
+```
+
+- [ ] Run the comparison — note which approach gives better answers for which question types
+- [ ] Write `COMPARISON.md` documenting your findings:
+  - Where vector RAG won (broad semantic queries)
+  - Where vectorless won (structured/specific queries)
+  - Latency differences (vectorless uses 2 LLM calls vs 1)
+  - Cost implications
+
+### 🌐 Unified API + UI (Day 3–4)
+- [ ] Create `src/rag_api.py` — FastAPI wrapper with both approaches:
 
 ```python
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from src.rag_chain import TradeReportRAG
+from src.vectorless_rag_chain import VectorlessTradeRAG
 import time
 
-app = FastAPI(title="Trade Intelligence RAG API", version="1.0.0")
+app = FastAPI(title="Trade Intelligence RAG API", version="2.0.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
-rag = TradeReportRAG()
+vector_rag = TradeReportRAG()
+vectorless_rag = VectorlessTradeRAG()
 
 class Question(BaseModel):
     question: str
+    method: str = "vector"  # "vector" or "vectorless"
 
 class Answer(BaseModel):
     question: str
     answer: str
-    sources_used: int
+    method: str
     latency_ms: float
+    metadata: dict = {}
 
 @app.post("/ask", response_model=Answer)
 async def ask(request: Question):
     start = time.time()
+    rag = vector_rag if request.method == "vector" else vectorless_rag
     result = rag.answer(request.question)
     return Answer(
         question=result["question"],
         answer=result["answer"],
-        sources_used=result["sources_used"],
-        latency_ms=round((time.time() - start) * 1000, 1)
+        method=request.method,
+        latency_ms=round((time.time() - start) * 1000, 1),
+        metadata={"reasoning": result.get("reasoning", ""),
+                   "nodes": result.get("nodes_retrieved", []),
+                   "sources_used": result.get("sources_used", 0)},
     )
 
 @app.get("/health")
 async def health():
-    return {"status": "UP", "collection": "trade_reports"}
+    return {"status": "UP", "methods": ["vector", "vectorless"]}
 ```
 
 - [ ] Run: `uvicorn src.rag_api:app --reload --port 8001`
-- [ ] Test via Swagger at http://localhost:8001/docs
-- [ ] Create a simple `index.html` chat UI (even basic HTML/JS is fine) that calls your `/ask` endpoint
+- [ ] Test both methods via Swagger at http://localhost:8001/docs
+- [ ] Create a simple `index.html` chat UI with a toggle to switch between vector and vectorless
 
-### 🎯 Evaluation: Is Your RAG Good? (Day 3–4)
-- [ ] Read: [RAG Evaluation Basics](https://docs.ragas.io/en/latest/concepts/metrics/index.html) (~20 min)
-- [ ] Create `src/evaluate_rag.py`:
+### 🎯 Evaluation (Day 5)
+- [ ] Create `src/evaluate_rag.py` — test both approaches against the same eval set:
 
 ```python
-"""
-Simple RAG evaluation — measure if answers are grounded in sources
-"""
 from src.rag_chain import TradeReportRAG
-
-rag = TradeReportRAG()
+from src.vectorless_rag_chain import VectorlessTradeRAG
 
 eval_set = [
-    {
-        "question": "What is the fill rate for Broker A market orders?",
-        "expected_contains": ["broker A", "market", "fill rate"],
-    },
-    {
-        "question": "Which broker has the highest risk score?",
-        "expected_contains": ["risk", "broker"],
-    },
+    {"question": "What is the fill rate for Broker A market orders?",
+     "expected_contains": ["broker A", "market", "fill rate"]},
+    {"question": "Which broker has the highest risk score?",
+     "expected_contains": ["risk", "broker"]},
+    {"question": "How did Broker C stop orders perform in November 2024?",
+     "expected_contains": ["broker C", "stop", "november"]},
 ]
 
-print("RAG Evaluation")
-print("=" * 50)
-for item in eval_set:
-    result = rag.answer(item["question"])
-    answer_lower = result["answer"].lower()
-    
-    hits = [kw for kw in item["expected_contains"] if kw.lower() in answer_lower]
-    score = len(hits) / len(item["expected_contains"])
-    
-    print(f"\nQ: {item['question']}")
-    print(f"Keywords found: {hits}/{item['expected_contains']}")
-    print(f"Grounding score: {score:.0%}")
-    print(f"Sources used: {result['sources_used']}")
+for name, rag in [("VECTOR", TradeReportRAG()), ("VECTORLESS", VectorlessTradeRAG())]:
+    print(f"\n{'='*50}\n{name} RAG Evaluation\n{'='*50}")
+    for item in eval_set:
+        result = rag.answer(item["question"])
+        answer_lower = result["answer"].lower()
+        hits = [kw for kw in item["expected_contains"] if kw.lower() in answer_lower]
+        score = len(hits) / len(item["expected_contains"])
+        print(f"\nQ: {item['question']}")
+        print(f"  Keywords: {hits}/{item['expected_contains']} → {score:.0%}")
 ```
 
-- [ ] Run evaluation, note the grounding scores
-- [ ] Try changing `top_k` in the retrieve method (3 vs 5 vs 8) — see how it affects answer quality
+- [ ] Run evaluation, compare grounding scores between approaches
 
-### 📝 Add Docker + Final Polish (Day 5–7)
-- [ ] Create `Dockerfile.rag` for the RAG API
+### 📝 Docker + Final Polish (Day 6–7)
+- [ ] Create `Dockerfile.rag` for the unified RAG API
 - [ ] Update `docker-compose.yml` to include Qdrant + RAG API together
-- [ ] Write `ARCHITECTURE.md` with a diagram of the full RAG system
+- [ ] Write `ARCHITECTURE.md` with diagrams of BOTH RAG approaches
 - [ ] Write `src/README.md` with:
-  - What it does
-  - How the RAG pipeline works (explain it simply)
+  - What it does and why two approaches
+  - How each RAG pipeline works (explain simply)
   - How to run it
-  - Example questions and answers (copy your best outputs)
+  - Example questions and answers from both approaches
+  - Your comparison findings
 - [ ] Commit everything
-- [ ] Update main README → Week 5–6 ✅ Done
+- [ ] Update main README → Week 5–7 ✅ Done
 
 ---
 
@@ -417,17 +720,21 @@ for item in eval_set:
 | [What is a Vector DB](https://qdrant.tech/articles/what-is-a-vector-database/) | Article | 15 min | 🔴 Must |
 | [Qdrant Quickstart](https://qdrant.tech/documentation/quick-start/) | Docs | 20 min | 🔴 Must |
 | [Sentence Transformers](https://www.sbert.net/docs/quickstart.html) | Docs | 20 min | 🔴 Must |
+| [Microsoft — Vectorless RAG](https://techcommunity.microsoft.com/blog/azuredevcommunityblog/vectorless-reasoning-based-rag-a-new-approach-to-retrieval-augmented-generation/4502238) | Blog | 20 min | 🔴 Must |
+| [PageIndex: The Vectorless RAG](https://pvtech.substack.com/p/pageindex-the-vectorless-rag) | Blog | 15 min | 🔴 Must |
 | [RAGAS Evaluation](https://docs.ragas.io/en/latest/) | Docs | 20 min | 🟡 Recommended |
 | [RAG from Scratch — LangChain YouTube](https://www.youtube.com/watch?v=wd7TZ4w1mSw) | Video | 45 min | 🟡 Recommended |
+| [All you need to know about RAG in 2026](https://open.substack.com/pub/aishwaryasrinivasan/p/all-you-need-to-know-about-rag-in) | Blog | 20 min | 🟡 Recommended |
 
 ---
 
 ## 🏁 End-of-Phase Self-Assessment
 
-- [ ] I have a working RAG system that answers questions about trade data
-- [ ] I understand what embeddings are and how semantic search differs from keyword search
-- [ ] I can explain RAG architecture in 2 minutes to a non-technical stakeholder
-- [ ] My RAG API is containerized and documented
-- [ ] I have evaluated my RAG system and understand its limitations
+- [ ] I have TWO working RAG systems on the same financial data
+- [ ] I understand embeddings, semantic search, and why they sometimes fail
+- [ ] I understand vectorless/reasoning-based retrieval and when it's better
+- [ ] I can articulate the tradeoffs between both approaches to a technical audience
+- [ ] My unified RAG API is containerized and documented with comparison results
+- [ ] I have a `COMPARISON.md` that shows real findings — this becomes a LinkedIn post
 
-**Next:** [Week 7–8 — Agent Patterns + Agentic AI →](../week-07-08-agentic-ai/README.md)
+**Next:** [Week 8–9 — Agent Patterns + Agentic AI →](../week-07-08-agentic-ai/README.md)

@@ -35,16 +35,16 @@ You are NOT a passive tutor. You are a pairing partner who:
 - If Sumit wants to go deeper on something, go deeper
 - Always remind Sumit how current work connects to the demoable deliverable
 
-## The 10-Week Plan
+## The 11-Week Plan
 
 | Phase | Focus | Demoable Deliverable |
 |-------|-------|---------------------|
 | Week 1–2 | MLOps Foundations + MLflow | MLflow dashboard with experiment comparison + drift report |
 | Week 3–4 | Model Serving + FastAPI + Docker | Live prediction API in Docker with Swagger UI |
-| Week 5–6 | RAG Pipeline — Financial Domain | Interactive RAG chatbot on trade data |
-| Week 7–8 | Agent Patterns + Agentic AI | Multi-tool brokerage agent (RAG + ML + compliance) |
-| Week 9 | Public Visibility | 2 LinkedIn posts + 1 BYOA article published |
-| Week 10 | Portfolio Polish + CV Update | Polished GitHub repo + updated CV + positioning statement |
+| Week 5–7 | RAG Pipeline — Vector + Vectorless | Two RAG approaches on same data with head-to-head comparison |
+| Week 8–9 | Agent Patterns + Agentic AI | Multi-tool brokerage agent (RAG + ML + compliance) |
+| Week 10 | Public Visibility | 2 LinkedIn posts + 1 BYOA article published |
+| Week 11 | Portfolio Polish + CV Update | Polished GitHub repo + updated CV + positioning statement |
 
 ## Key Context
 

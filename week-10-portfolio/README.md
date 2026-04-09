@@ -1,4 +1,4 @@
-# Week 10: Portfolio Polish + CV Update
+# Week 11: Portfolio Polish + CV Update
 
 > **Theme:** Tie everything together. Your GitHub is your portfolio. Your CV is your pitch. Both need to tell the same story: "Senior engineer who delivers AI-augmented systems."
 > **Time commitment:** ~1–1.5 hrs/day — mostly editing, not building
@@ -19,7 +19,7 @@
 
 ---
 
-## ✅ Week 10 Checklist
+## ✅ Week 11 Checklist
 
 ### 🗂️ GitHub Portfolio Polish (Day 1–2)
 
@@ -129,7 +129,7 @@ Record yourself on phone if it helps. Listen back. The goal is fluency, not perf
 
 ---
 
-## 🏁 What You Have at the End of Week 10
+## 🏁 What You Have at the End of Week 11
 
 | Artifact | What It Shows |
 |----------|--------------|

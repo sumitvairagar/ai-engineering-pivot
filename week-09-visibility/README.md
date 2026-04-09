@@ -1,4 +1,4 @@
-# Week 9: Public Visibility — LinkedIn + Articles
+# Week 10: Public Visibility — LinkedIn + Articles
 
 > **Theme:** Make your work visible. This is not "marketing" — it's showing your engineering thinking publicly. The best engineers in AI are also the ones who write.
 > **Time commitment:** ~1 hr/day — most of this is writing, not coding
@@ -28,7 +28,7 @@
 
 ---
 
-## ✅ Week 9 Checklist
+## ✅ Week 10 Checklist
 
 ### 📝 LinkedIn Post #1: MLOps from a Java Engineer's Lens (Day 1–2)
 
@@ -151,4 +151,4 @@ in TypeScript/OpenAI.
 - [ ] Workshop case study written
 - [ ] Notes for CV update prepared
 
-**Next:** [Week 10 — Portfolio Polish + CV Update →](../week-10-portfolio/README.md)
+**Next:** [Week 11 — Portfolio Polish + CV Update →](../week-10-portfolio/README.md)
