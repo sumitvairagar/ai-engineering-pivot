@@ -90,7 +90,7 @@ Title: "BYOA: Bring Your Own Agent — The Next Shift in Professional Work"
 
 3. Concrete example (3 para)
    → Your BrokerageOpsAgent — what it knows, what it can do
-   → How it would have accelerated the Manafsoft engagement
+   → How it would accelerate a real brokerage modernization engagement
    → What it would look like for a PM, a QA engineer, a designer
 
 4. What needs to be solved (1 para)

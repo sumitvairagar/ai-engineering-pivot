@@ -53,7 +53,7 @@ You already know the agent loop from your workshop. This phase adds **production
   - Why simple agents beat complex ones (Anthropic's key finding)
   - The difference between workflow (fixed) vs agent (dynamic)
   - When NOT to use agents (important!)
-- [ ] Write in `notes.md`: Based on the Manafsoft engagement — which workflows would benefit from agents vs which should stay deterministic?
+- [ ] Write in `notes.md`: In a brokerage operations context — which workflows would benefit from agents vs which should stay deterministic?
 
 ### 🛠️ Build a Multi-Tool Agent (Day 2–3)
 - [ ] Create `src/brokerage_agent.py`:
@@ -354,7 +354,7 @@ class BrokerageAgentSession:
 - [ ] In `notes.md`, answer:
   1. What's the difference between your agent and a hardcoded if/else decision tree?
   2. When would you NOT use an agent here? (Critical thinking)
-  3. How would you add this agent as a service in the Manafsoft architecture?
+  3. How would you add this agent as a service in a brokerage OMS architecture?
 - [ ] Commit everything
 
 ---

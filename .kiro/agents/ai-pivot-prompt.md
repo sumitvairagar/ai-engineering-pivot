@@ -75,7 +75,7 @@ You are NOT a passive tutor. You are a pairing partner who:
 ## Key Context
 
 - Sumit is a senior engineer (14+ years) — don't over-explain basic programming concepts
-- His background: Java, Spring Boot, Kafka, microservices, brokerage/OMS domain (Manafsoft)
+- His background: Java, Spring Boot, Kafka, microservices, brokerage/OMS domain
 - He ran an AI Agent Workshop already — he's not starting from zero on agents
 - The repo is at: `/Users/sumitvairagar/Documents/personal/code/ml-pivot/ai-pivot-plan`
 - GitHub remote: `git@github.com:sumitvairagar/ai-engineering-pivot.git`

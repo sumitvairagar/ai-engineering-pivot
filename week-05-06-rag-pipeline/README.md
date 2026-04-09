@@ -86,71 +86,81 @@ Answer (grounded in logically-relevant sections)
 - [ ] Read: [What is a Vector Database](https://qdrant.tech/articles/what-is-a-vector-database/) (~15 min)
 - [ ] **What to absorb:** An embedding is a list of ~1500 numbers that captures the *meaning* of a text. Similar texts have similar numbers. A vector DB lets you search by meaning, not keywords.
 
-### 📄 Generate Synthetic Financial Documents (Day 2)
-- [ ] Create `src/generate_docs.py`:
+### 📄 Get Real Financial Data (Day 2)
+
+Instead of synthetic data, you'll use real public market data. This makes your portfolio reproducible and credible.
+
+- [ ] Install data packages:
+  ```bash
+  pip install yfinance
+  ```
+- [ ] Create `src/fetch_market_data.py`:
 
 ```python
 """
-Generate synthetic trade/order documents that simulate 
-what you'd have in a real brokerage system like Manafsoft.
-Each "document" is a trade summary report.
+Fetch real market data and generate trade-style report documents.
+Uses yfinance for public stock data — no NDA, fully reproducible.
 """
+import yfinance as yf
 import json
 import random
-from datetime import datetime, timedelta
+from datetime import datetime
 
 random.seed(42)
 
-def generate_trade_report(date, broker, order_type, size_range, volatility_range):
-    size = random.randint(*size_range)
-    volatility = round(random.uniform(*volatility_range), 2)
-    fill_rate = round(random.uniform(0.55, 0.98) if volatility < 1.2 else random.uniform(0.3, 0.7), 2)
-    
-    return {
-        "id": f"REPORT-{date.strftime('%Y%m%d')}-{broker}-{random.randint(1000,9999)}",
-        "date": date.strftime("%Y-%m-%d"),
-        "broker": broker,
-        "order_type": order_type,
-        "total_orders": random.randint(50, 500),
-        "avg_order_size": size,
-        "fill_rate": fill_rate,
-        "rejection_rate": round(1 - fill_rate, 2),
-        "market_volatility": volatility,
-        "volume_traded": size * random.randint(50, 500),
-        "risk_score": round(volatility * (1 - fill_rate) * 10, 2),
-        "summary": (
-            f"Broker {broker} processed {random.randint(50,500)} {order_type} orders "
-            f"on {date.strftime('%B %d, %Y')}. Average order size was {size} units. "
-            f"Fill rate was {fill_rate*100:.1f}%. Market volatility index was {volatility}. "
-            f"{'High volatility impacted fill rates significantly.' if volatility > 1.5 else 'Market conditions were stable.'} "
-            f"Risk score: {round(volatility * (1-fill_rate) * 10, 2)}/10."
-        )
-    }
-
-# Generate 90 days of reports
+# Fetch real stock data for 3 tickers (simulating 3 "brokers")
+tickers = {"AAPL": "Broker-A", "MSFT": "Broker-B", "JPM": "Broker-C"}
 reports = []
-base_date = datetime(2024, 10, 1)
 
-for day_offset in range(90):
-    date = base_date + timedelta(days=day_offset)
-    if date.weekday() >= 5:  # skip weekends
-        continue
-    for broker in ["A", "B", "C"]:
+for ticker, broker in tickers.items():
+    stock = yf.Ticker(ticker)
+    hist = stock.history(period="6mo")
+
+    for date, row in hist.iterrows():
+        date_str = date.strftime("%Y-%m-%d")
+        volatility = round(abs(row["High"] - row["Low"]) / row["Open"] * 100, 2)
+        volume = int(row["Volume"])
+
         for order_type in ["market", "limit", "stop"]:
-            size_range = {"A": (3000, 8000), "B": (1000, 4000), "C": (500, 2000)}[broker]
-            vol_range = (0.5, 2.5) if day_offset > 60 else (0.3, 1.5)  # market changes
-            reports.append(generate_trade_report(date, broker, order_type, size_range, vol_range))
+            fill_rate = round(random.uniform(0.7, 0.98) if volatility < 2.0
+                            else random.uniform(0.4, 0.75), 2)
+            avg_size = random.randint(500, 8000)
 
-# Save
+            reports.append({
+                "id": f"RPT-{date_str}-{broker}-{order_type}",
+                "date": date_str,
+                "broker": broker,
+                "ticker": ticker,
+                "order_type": order_type,
+                "total_orders": random.randint(50, 500),
+                "avg_order_size": avg_size,
+                "fill_rate": fill_rate,
+                "rejection_rate": round(1 - fill_rate, 2),
+                "market_volatility": volatility,
+                "close_price": round(row["Close"], 2),
+                "volume": volume,
+                "risk_score": round(volatility * (1 - fill_rate), 2),
+                "summary": (
+                    f"{broker} ({ticker}) processed {random.randint(50,500)} {order_type} "
+                    f"orders on {date_str}. Close price: ${row['Close']:.2f}. "
+                    f"Intraday volatility: {volatility}%. Fill rate: {fill_rate*100:.1f}%. "
+                    f"Volume: {volume:,} shares. Avg order size: {avg_size} units. "
+                    f"{'High volatility impacted fills.' if volatility > 2.0 else 'Stable conditions.'} "
+                    f"Risk score: {round(volatility * (1-fill_rate), 2)}."
+                )
+            })
+
 with open("src/trade_reports.json", "w") as f:
     json.dump(reports, f, indent=2)
 
-print(f"Generated {len(reports)} trade reports")
+print(f"Generated {len(reports)} trade reports from real market data")
+print(f"Date range: {reports[0]['date']} to {reports[-1]['date']}")
 print(f"Sample: {reports[0]['summary']}")
 ```
 
-- [ ] Run it: `python src/generate_docs.py`
-- [ ] Open `trade_reports.json`, read a few summaries — they should feel realistic
+- [ ] Run it: `python src/fetch_market_data.py`
+- [ ] Open `trade_reports.json` — these are based on real AAPL, MSFT, JPM price data
+- [ ] **Key insight:** Real data has real patterns — earnings days spike volatility, volumes cluster around market open/close. Your model and RAG will pick up on these.
 
 ### 🗂️ Build the Vector Index (Day 3–4)
 - [ ] Start Qdrant locally with Docker:

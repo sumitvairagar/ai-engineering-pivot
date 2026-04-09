@@ -95,7 +95,7 @@ with mlflow.start_run():
 - [ ] Read: [What is a Feature Store](https://www.featurestore.org/what-is-a-feature-store) (~15 min)
 - [ ] Read: [Feature Pipelines vs Data Pipelines](https://www.tecton.ai/blog/what-is-a-feature-pipeline/) (~10 min)
 - [ ] **Think exercise — do this in notes.md:**
-  In the Manafsoft OMS context, define 5 "features" a model might need:
+  In a brokerage OMS context, define 5 "features" a model might need:
   - Example: `order_volume_last_1hr`, `broker_fill_rate_7d`, `market_volatility_score`
   - Write your own 5. This is the domain-specific thinking that makes you valuable.
 
@@ -116,7 +116,7 @@ mlflow.register_model(model_uri, "IrisClassifier")
 
 ### 🏦 Domain Experiment: Order Fill Rate Predictor (Day 3–4)
 
-This is your first piece of portfolio work. Synthetic brokerage data, mimicking Manafsoft context.
+This is your first piece of portfolio work. Synthetic brokerage data based on real market patterns.
 
 - [ ] Create `experiments/order_fill_predictor.py`:
 
