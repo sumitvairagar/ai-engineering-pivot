@@ -8,7 +8,7 @@
 
 | Phase | Topic | Demoable Deliverable | Status |
 |-------|-------|---------------------|--------|
-| Week 1–2 | MLOps Foundations + MLflow | MLflow dashboard with experiment comparison + drift report | ⬜ Not Started |
+| Week 1–2 | MLOps Foundations + MLflow | MLflow dashboard with experiment comparison + drift report | ✅ Done |
 | Week 3–4 | Model Serving + Docker + FastAPI | Live prediction API in Docker with Swagger UI | ⬜ Not Started |
 | Week 5–7 | RAG Pipeline — Vector + Vectorless | Two RAG approaches on same data with head-to-head comparison | ⬜ Not Started |
 | Week 8–9 | Agent Patterns + Agentic AI | Multi-tool brokerage agent (RAG + ML + compliance) | ⬜ Not Started |

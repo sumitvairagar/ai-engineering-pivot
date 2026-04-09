@@ -2,7 +2,7 @@
 
 > **Theme:** Understand the ML lifecycle from YOUR lens — a senior engineer who already knows pipelines, CI/CD, and distributed systems.
 > **Time commitment:** ~1.5–2 hrs/day, or batch it on weekends
-> **Status:** ⬜ Not Started
+> **Status:** ✅ Done
 
 ---
 
@@ -104,21 +104,21 @@ with mlflow.start_run():
 ## ✅ Week 2 Checklist
 
 ### 📦 MLflow Model Registry (Day 1–2)
-- [ ] Read: [MLflow Model Registry docs](https://mlflow.org/docs/latest/model-registry.html) — first 3 sections
-- [ ] Register your best iris run in the registry:
+- [x] Read: [MLflow Model Registry docs](https://mlflow.org/docs/latest/model-registry.html) — first 3 sections
+- [x] Register your best iris run in the registry:
 ```python
 # Get the run_id from the MLflow UI, then:
 model_uri = "runs:/<your_run_id>/model"
 mlflow.register_model(model_uri, "IrisClassifier")
 ```
-- [ ] In the MLflow UI, go to Models tab → transition to Staging → then Production
-- [ ] **Key insight:** Staging = your test environment. Production = live. Exact same mental model as your current deployment pipelines.
+- [x] In the MLflow UI, go to Models tab → transition to Staging → then Production
+- [x] **Key insight:** Staging = your test environment. Production = live. Exact same mental model as your current deployment pipelines.
 
 ### 🏦 Domain Experiment: Order Fill Rate Predictor (Day 3–4)
 
 This is your first piece of portfolio work. Synthetic brokerage data based on real market patterns.
 
-- [ ] Create `experiments/order_fill_predictor.py`:
+- [x] Create `experiments/order_fill_predictor.py`:
 
 ```python
 import mlflow
@@ -183,17 +183,17 @@ for lr in [0.05, 0.1, 0.2]:
             print(f"lr={lr}, depth={depth}: acc={acc:.3f}, f1={f1:.3f}")
 ```
 
-- [ ] Run it — you'll see 6 runs in MLflow UI
-- [ ] Find the best model by F1 score (better metric for imbalanced classes than accuracy)
-- [ ] Register the best as `OrderFillPredictor` and promote to Staging
-- [ ] **Portfolio note:** Add a comment in the file explaining why you used GradientBoosting over RandomForest for this use case. This shows engineering judgment.
+- [x] Run it — you'll see 6 runs in MLflow UI
+- [x] Find the best model by F1 score (better metric for imbalanced classes than accuracy)
+- [x] Register the best as `OrderFillPredictor` and promote to Staging
+- [x] **Portfolio note:** Add a comment in the file explaining why you used GradientBoosting over RandomForest for this use case. This shows engineering judgment.
 
 ### 🔍 Model Monitoring + Drift (Day 5)
-- [ ] Install Evidently:
+- [x] Install Evidently:
   ```bash
   pip install evidently
   ```
-- [ ] Create `experiments/drift_demo.py`:
+- [x] Create `experiments/drift_demo.py`:
 
 ```python
 from evidently.report import Report
@@ -223,16 +223,16 @@ report.save_html("drift_report.html")
 print("Open drift_report.html in your browser")
 ```
 
-- [ ] Open `drift_report.html` — observe which features drifted
-- [ ] **Key insight to write in notes.md:** If `market_volatility` drifts significantly, your `OrderFillPredictor` predictions become unreliable. This is why you need monitoring, not just deployment.
+- [x] Open `drift_report.html` — observe which features drifted
+- [x] **Key insight to write in notes.md:** If `market_volatility` drifts significantly, your `OrderFillPredictor` predictions become unreliable. This is why you need monitoring, not just deployment.
 
 ### 📝 Week 2 Wrap-up (Day 6–7)
-- [ ] Write `notes.md` answers:
+- [x] Write `notes.md` answers:
   1. How would you integrate MLflow into a Java/Spring Boot CI/CD pipeline? (Hint: MLflow has a REST API)
   2. What would you monitor in production for the OrderFillPredictor?
   3. What's the difference between model accuracy dropping vs data drift? Which do you detect first?
-- [ ] Commit all code to GitHub
-- [ ] Update main README dashboard → Week 1–2 ✅ Done
+- [x] Commit all code to GitHub
+- [x] Update main README dashboard → Week 1–2 ✅ Done
 
 ---
 
