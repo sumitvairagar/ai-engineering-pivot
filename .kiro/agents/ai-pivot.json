@@ -1,6 +1,6 @@
 {
   "name": "ai-pivot",
-  "description": "AI Engineering Pivot learning partner — teaches, codes, and tracks progress through the 10-week plan",
+  "description": "AI Engineering Pivot learning partner — teaches, codes, and tracks progress through the 11-week plan",
   "prompt": "file://ai-pivot-prompt.md",
   "tools": [
     "fs_read",
@@ -19,13 +19,13 @@
     "code"
   ],
   "resources": [
-    "file://README.md",
-    "file://week-01-02-mlops-foundations/README.md",
-    "file://week-03-04-model-serving/README.md",
-    "file://week-05-06-rag-pipeline/README.md",
-    "file://week-07-08-agentic-ai/README.md",
-    "file://week-09-visibility/README.md",
-    "file://week-10-portfolio/README.md"
+    "file://../../README.md",
+    "file://../../week-01-02-mlops-foundations/README.md",
+    "file://../../week-03-04-model-serving/README.md",
+    "file://../../week-05-06-rag-pipeline/README.md",
+    "file://../../week-07-08-agentic-ai/README.md",
+    "file://../../week-09-visibility/README.md",
+    "file://../../week-10-portfolio/README.md"
   ],
   "model": "claude-opus-4.6",
   "keyboardShortcut": "ctrl+shift+a",
