@@ -722,9 +722,12 @@ for name, rag in [("VECTOR", TradeReportRAG()), ("VECTORLESS", VectorlessTradeRA
 | [Sentence Transformers](https://www.sbert.net/docs/quickstart.html) | Docs | 20 min | 🔴 Must |
 | [Microsoft — Vectorless RAG](https://techcommunity.microsoft.com/blog/azuredevcommunityblog/vectorless-reasoning-based-rag-a-new-approach-to-retrieval-augmented-generation/4502238) | Blog | 20 min | 🔴 Must |
 | [PageIndex: The Vectorless RAG](https://pvtech.substack.com/p/pageindex-the-vectorless-rag) | Blog | 15 min | 🔴 Must |
+| [Context Engineering: The Hidden Discipline](https://stepto.net/blog/context-engineering-ai-agents-production-2026) | Blog | 25 min | 🔴 Must |
+| [Context Engineering for Teams — Taskade](https://www.taskade.com/blog/context-engineering-teams-guide) | Guide | 20 min | 🟡 Recommended |
+| [All you need to know about RAG in 2026](https://open.substack.com/pub/aishwaryasrinivasan/p/all-you-need-to-know-about-rag-in) | Blog | 20 min | 🟡 Recommended |
 | [RAGAS Evaluation](https://docs.ragas.io/en/latest/) | Docs | 20 min | 🟡 Recommended |
 | [RAG from Scratch — LangChain YouTube](https://www.youtube.com/watch?v=wd7TZ4w1mSw) | Video | 45 min | 🟡 Recommended |
-| [All you need to know about RAG in 2026](https://open.substack.com/pub/aishwaryasrinivasan/p/all-you-need-to-know-about-rag-in) | Blog | 20 min | 🟡 Recommended |
+| [LangChain State of AI Agents 2026](https://www.langchain.com/state-of-agent-engineering) | Report | 30 min | 🟡 Recommended |
 
 ---
 

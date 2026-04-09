@@ -59,6 +59,8 @@ By the end of 11 weeks, you will have:
 | LlamaIndex | RAG alternative | https://docs.llamaindex.ai |
 | Qdrant | Vector DB | https://qdrant.tech/documentation |
 | Docker Docs | Containerization | https://docs.docker.com |
+| Context Engineering Guide | Post-RAG paradigm | https://stepto.net/blog/context-engineering-ai-agents-production-2026 |
+| LangChain State of Agents 2026 | Agent market landscape | https://www.langchain.com/state-of-agent-engineering |
 
 ---
 
