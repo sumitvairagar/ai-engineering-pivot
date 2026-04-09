@@ -1,0 +1,6 @@
+.env
+mlruns/
+qdrant_storage/
+__pycache__/
+*.pyc
+.kiro/settings/

@@ -1,0 +1,32 @@
+{
+  "name": "ai-pivot",
+  "description": "AI Engineering Pivot learning partner — teaches, codes, and tracks progress through the 10-week plan",
+  "prompt": "file://.kiro/agents/ai-pivot-prompt.md",
+  "tools": [
+    "fs_read",
+    "fs_write",
+    "execute_bash",
+    "grep",
+    "glob",
+    "code",
+    "web_search",
+    "web_fetch"
+  ],
+  "allowedTools": [
+    "fs_read",
+    "grep",
+    "glob",
+    "code"
+  ],
+  "resources": [
+    "file://README.md",
+    "file://week-01-02-mlops-foundations/README.md",
+    "file://week-03-04-model-serving/README.md",
+    "file://week-05-06-rag-pipeline/README.md",
+    "file://week-07-08-agentic-ai/README.md",
+    "file://week-09-visibility/README.md",
+    "file://week-10-portfolio/README.md"
+  ],
+  "keyboardShortcut": "ctrl+shift+a",
+  "welcomeMessage": "Ready to pick up where we left off. Say 'let's begin' and I'll check your progress and start from the next item."
+}
