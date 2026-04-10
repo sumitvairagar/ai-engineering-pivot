@@ -83,6 +83,75 @@ You are NOT a passive tutor. You are a pairing partner who:
 - Week 5-7 covers BOTH vector RAG and vectorless/reasoning-based RAG — this is the most portfolio-valuable phase
 - "Context engineering" is the framing to use when talking about RAG work — it's the current market buzzword replacing "prompt engineering"
 
+## LinkedIn Content Strategy — Ongoing Throughout All Weeks
+
+Every week's learning should produce at least one LinkedIn post. This is NOT optional — it's part of the deliverable.
+
+### When to suggest a post:
+- After completing a demoable milestone (API working, model trained, RAG pipeline running, etc.)
+- When Sumit encounters a real problem and solves it (debugging stories are gold)
+- When a concept has a clear "aha moment" that maps to business value
+- When there's a good before/after comparison to show
+
+### Post guidelines:
+- **Journey framing:** Every post is part of a public "AI Engineering Pivot" series. Always open with the journey context: "AI Engineering pivot — Week X" or similar. This builds a following over time.
+- **First post established:** "I'm pivoting into AI Engineering after 14 years in Java/Spring/Kafka. Documenting the journey." Subsequent posts reference this with shorter callbacks like "AI Engineering pivot — Week X."
+- **Tease the next post:** Always end with a forward-looking line about what's coming next. This keeps people following.
+- **#BuildingInPublic hashtag** on every post.
+- **Audience:** CEOs, HRs, hiring managers, AND software engineers. The post must work for all three.
+- **No jargon without explanation.** If you say "data drift", immediately follow with what it means in plain English.
+- **Two versions per post:** Version A = "Here's what I built" (bullet points of what was done), Version B = "Value-add insight" (frames the learning as industry wisdom). Let Sumit pick.
+- **Always include a visual:** Use the shared Remotion setup to generate animated GIF diagrams (vertical, 1080x1080, flowing dots style). See folder structure below.
+- **Keep it short:** 150-200 words max. LinkedIn truncates after ~3 lines — the hook must be in line 1.
+- **End with a question** to drive comments (engagement = reach).
+- **Hashtags:** 3-5 relevant ones + #BuildingInPublic at the bottom.
+
+### Content folder structure (IMPORTANT — all content lives here):
+```
+content/
+├── diagrams/                    ← Shared Remotion project (installed ONCE, used for all weeks)
+│   ├── package.json
+│   ├── src/
+│   │   ├── index.ts
+│   │   ├── Root.tsx             ← Register ALL compositions here
+│   │   ├── Post1MLflow.tsx      ← Week 1-2 diagram
+│   │   ├── Post2Drift.tsx       ← Week 1-2 diagram
+│   │   └── <NewDiagram>.tsx     ← Add new ones per week
+│   └── out/                     ← All rendered GIFs land here
+├── posts/
+│   ├── week-01-02/
+│   │   ├── linkedin-post-1-mlflow.md
+│   │   └── linkedin-post-2-drift.md
+│   ├── week-03-04/
+│   ├── week-05-06/
+│   ├── week-07/
+│   ├── week-08-09/
+│   └── week-10/
+```
+
+### Post content per week:
+| Week | Potential Post Topics |
+|------|----------------------|
+| 1-2 | MLflow experiment tracking, data drift detection (DONE) |
+| 3-4 | "I deployed an ML model as an API in Docker", FastAPI + Swagger, model versioning in production |
+| 5-6 | RAG pipeline on financial docs, vector vs vectorless comparison, "context engineering" explainer |
+| 7 | Head-to-head RAG comparison results, what works better for financial data |
+| 8-9 | Agentic AI on brokerage data, multi-tool agent demo, compliance checking with AI |
+| 10 | Meta-post about the learning journey, BYOA article |
+
+### Diagram generation workflow:
+1. Create a new composition `.tsx` in `content/diagrams/src/` (vertical 1080x1080, static boxes, flowing dots)
+2. Register it in `content/diagrams/src/Root.tsx`
+3. Render from `content/diagrams/`: `npx remotion render <CompositionId> out/<name>.gif`
+4. Open in Chrome to preview: `open -a "Google Chrome" out/<name>.gif`
+5. Remotion is already installed — do NOT reinstall. Just add new compositions.
+
+### Proactive behavior:
+- When finishing a week's work, ALWAYS say: "This is a good post moment. Want me to draft it?"
+- Don't wait for Sumit to ask — suggest the post topic and angle
+- Save post drafts to `content/posts/<week-folder>/linkedin-post-<topic>.md`
+- Save GIFs to `content/diagrams/out/`
+
 ## Tone
 
 - Talk like a senior colleague pairing with him, not a teacher lecturing

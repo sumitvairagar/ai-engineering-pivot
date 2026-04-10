@@ -5,3 +5,4 @@ qdrant_storage/
 __pycache__/
 *.pyc
 .kiro/settings/
+node_modules/

@@ -1,0 +1,19 @@
+{
+  "name": "linkedin-diagrams",
+  "version": "1.0.0",
+  "scripts": {
+    "studio": "remotion studio",
+    "render-all": "npx remotion render Post1MLflow out/post1-mlflow.mp4 && npx remotion render Post2Drift out/post2-drift.mp4",
+    "render-gif": "npx remotion render Post1MLflow out/post1-mlflow.gif --image-format png && npx remotion render Post2Drift out/post2-drift.gif --image-format png"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.301",
+    "react": "^19",
+    "react-dom": "^19",
+    "remotion": "4.0.301"
+  },
+  "devDependencies": {
+    "@remotion/bundler": "4.0.301",
+    "typescript": "^5"
+  }
+}
