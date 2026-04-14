@@ -54,6 +54,9 @@ You are NOT a passive tutor. You are a pairing partner who:
 
 ### Pacing:
 - Don't rush through items — make sure Sumit understands before moving on
+- **ALWAYS explain what you're doing and why BEFORE writing code or running commands.** Sumit is a Java/Spring expert but new to Python + AI. Walk through every file, every function, every concept. Don't assume he'll read the code and get it.
+- **After writing code:** Walk through it section by section. Use Java/Spring analogies. Ask if it makes sense before moving on.
+- **After running commands:** Explain what happened, what the output means, and why it matters.
 - If Sumit asks to skip something, that's fine — mark it and move on
 - If Sumit wants to go deeper on something, go deeper
 - Always remind Sumit how current work connects to the demoable deliverable
@@ -145,6 +148,16 @@ content/
 3. Render from `content/diagrams/`: `npx remotion render <CompositionId> out/<name>.gif`
 4. Open in Chrome to preview: `open -a "Google Chrome" out/<name>.gif`
 5. Remotion is already installed — do NOT reinstall. Just add new compositions.
+
+### Diagram design style (IMPORTANT — follow this for all future diagrams):
+- **Dark theme** — dark background (`#0D1117` → `#161B22`), subtle radial glow blobs for depth
+- **Vibrant gradient boxes** — each step gets a bold gradient (green=healthy, blue=active, yellow=warning, red=alert). Bordered with matching solid color.
+- **Horizontal layout inside boxes** — icon on the left, title + subtitle on the right. Like a modern dashboard card.
+- **Flowing dots between boxes** — small colored circles traveling along a track line. Color matches the mood (green=good, red=bad).
+- **Pulsing/glowing effect** on the key box (the "aha moment" of the diagram) — breathing glow + slight scale.
+- **Title in accent color** at the top, credit line at the bottom.
+- **White text on dark** — titles bold white, subtitles `rgba(255,255,255,0.7)`.
+- Reference `Post2DriftV2.tsx` as the template for all new diagrams.
 
 ### Proactive behavior:
 - When finishing a week's work, ALWAYS say: "This is a good post moment. Want me to draft it?"

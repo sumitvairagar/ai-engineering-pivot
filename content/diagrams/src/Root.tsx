@@ -1,11 +1,12 @@
 import { Composition } from "remotion";
 import { Post1MLflow } from "./Post1MLflow";
 import { Post2Drift } from "./Post2Drift";
+import { Post2DriftV2 } from "./Post2DriftV2";
 
-// 1080x1080 = LinkedIn square format, great for mobile
 export const RemotionRoot = () => (
   <>
     <Composition id="Post1MLflow" component={Post1MLflow} durationInFrames={150} fps={30} width={1080} height={1080} />
     <Composition id="Post2Drift" component={Post2Drift} durationInFrames={180} fps={30} width={1080} height={1080} />
+    <Composition id="Post2DriftV2" component={Post2DriftV2} durationInFrames={180} fps={30} width={1080} height={1080} />
   </>
 );
